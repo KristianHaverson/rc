@@ -1,0 +1,146 @@
+
+" -----------------------------------------------------------------------------
+" Description: Vimrc file
+" Name: Kristian Haverson
+" Date: March 2022
+" Email: 
+ "Notes:
+" -----------------------------------------------------------------------------
+
+set nocompatible              " Required
+filetype off                  " Required
+
+" Sets the runtime path to include Vundle and initialise
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'rdnetto/YCM-Generator'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()            " required
+
+filetype plugin indent on
+
+""" Configuration: YouCompleteMe
+""let g:ycm_python_binary_path='/usr/bin/python3'
+let g:ycm_autoclose_preview_window_after_completion=1
+" Go to the declaration/definition of a func using '-g'
+let mapleader = "-"
+map <leader>g : YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+set guifont=Monaco:h12
+set encoding=utf-8
+let g:ycm_keep_logfiles = 1
+let g:ycm_log_level = 'debug'
+
+let g:tex_flavor='latex'
+
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+	autocmd GUIEnter * set visualbell t_vb=
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/c.vim'
+Plug 'morhetz/gruvbox'
+Plug 'git@github.com:vim-scripts/cern_root.vim.git'
+Plug 'scrooloose/syntastic'
+ Plug 'preservim/nerdtree'
+" 
+    Plug 'parnmatt/vim-root'
+call plug#end()
+
+filetype plugin on
+filetype indent on
+set so=7
+set wildmenu
+set ruler
+set cmdheight=1
+set ignorecase
+set smartcase
+set hlsearch
+set magic
+set showmatch
+set mat=2
+set noerrorbells
+set novisualbell
+set smartindent
+set incsearch
+set t_vb=
+set tm=500
+set autoindent
+" move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+" $/^ doesn't do anything
+nnoremap $ <nop>
+nnoremap ^ <nop>
+
+noremap <leader><space> : nohlsearch<CR>
+"Colors and font
+syntax enable
+source /Users/krishaverson/.vim/after/syntax/c.vim
+
+syntax on
+colorscheme gruvbox
+"set background=dark
+"highlight ColorColumn ctermbg=10 guibg=lightgrey
+set cursorline
+set wrap
+
+set wildmenu
+set lazyredraw
+
+"Forgot what these do
+set tabstop=2 
+set softtabstop=2
+set shiftwidth=2
+set nu
+set noswapfile
+set undodir=~/.vim/undodir
+set mouse=a
+
+set title
+set clipboard=unnamed
+set colorcolumn=80
+set showmatch
+set matchtime=5
+set ai
+set si
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+" let g:ycm_show_diagnostics_ui = 0
+
+
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+map <C-n> :NERDTreeToggle<CR>
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=%f\ -\ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+  function! SyntasticCheckHook(errors)
+        if !empty(a:errors)
+            let g:syntastic_loc_list_height = min([len(a:errors), 10])
+        endif
+    endfunction
+nnoremap <leader><space> :nohlsearch<CR>
+
+"	let g:syntastic_cpp_check_header = 0
+"let g:syntastic_cpp_remove_include,, _errors = 1
+filetype plugin indent on
+"let g:syntastic_python_checkers=['flake8']
